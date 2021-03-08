@@ -13102,7 +13102,7 @@ div#notebook {
 <script>
 $( document ).ready(function(){
 
-            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": true};
+            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": false};
 
             // fire the main function with these parameters
             require(['nbextensions/toc2/toc2'], function (toc2) {
@@ -13134,14 +13134,38 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Theory">Theory<a class="anchor-link" href="#Theory">&#182;</a></h2>
+<h2 id="Rotational-EMF">Rotational EMF<a class="anchor-link" href="#Rotational-EMF">&#182;</a></h2><p>“EMF” or “electro-motive force” is a voltage induced in a closed circuit by the rate of change of flux-linkage $\Psi$. It always obeys Faraday’s law:</p>
+\begin{equation*}
+\mathcal{E} = \frac{\delta \Psi}{\delta t}
+\label{eq:flaw} \tag{1}
+\end{equation*}<p>If the sign conventions of voltage and current are chosen to define the circuit as a source of electrical power, a negative sign is added; but if they are chosen to define the circuit as a sink of power, the negative sign is not required. In both cases, however, the polarity of the EMF is such as to tend to drive a current in such a direction as to oppose the change in flux-linkage, and this principle is known as Lenz’ law.</p>
+<p>In the design of electric machines there are several standard formulas for the generated EMF. They differ according to the type of machine and the waveform of the EMF, but they are all derived from eqn. (1). Eqn. (1) is not in a convenient form for classical design calculations, but in its discrete form it is common in finite-element computations.</p>
+<center>
+<img src="fig1.png" alt="fishy" class="bg-primary mb-1" width="800px">
+    <figcaption><b>Fig. 1:</b> Figure to explain the generation of REMF (credit: google)</figcaption>
+</center><p>In Fig. 1 let us consider a simple machine with a stator coil and a rotor coil. Assume that the stator coil carries direct current which establishes a flux that links the rotor coil. The flux-linkage of the rotor coil will vary in a cyclic manner and it will alternate between positive and negative values, with one positive maximum and one negative maximum in each rotation. The changing flux-linkage generates an EMF according to eqn. (1).</p>
+<p>In case (A), the rotor EMF is communicated to the stationary “outside world” by slip-rings and brushes without modification, so the voltage across the brushes is AC.</p>
+<p>In case (B) the rotor EMF is communicated to the stationary “outside world” by a commutator and brushes. It is evident that the commutator rectifies the alternating EMF by reversing the connections of the rotor coil twice in every rotation, so the voltage across the brushes is DC. It is more correct to say that it has a non-zero average value, while it also contains a significant ripple component. The non-zero average value is the so-called DC component.</p>
+<p>Now let us return to eqn. (1) and consider the fact that the flux-linkage of a coil may vary either as a result of its rotation, or as a result of the variation of the magnetic field. These two distinct effects can be expressed mathematically by partial differentiation, writing</p>
+\begin{equation*}
+\mathcal{E} = \frac{\delta \Psi}{\delta \theta} . \frac{\delta \theta}{\delta t} + \frac{\delta \Psi}{\delta t} 
+\label{eq:flaw2} \tag{2}
+\end{equation*}<p>The first term is attributed to rotation, while the second term is attributed to the variation of the flux. The first term is called the rotational EMF, and it is proportional to the instantaneous angular velocity $\frac{d\theta}{dt}$. The second term is sometimes called the transformer EMF. Both of them are induced EMFs.</p>
+<p>If the flux is constant, the transformer EMF vanishes, leaving the rotational EMF. If the flux is constant the EMF in the stator coil will be zero. Only the rotor coil will have an EMF, and as we have seen this can be communicated to the “outside world” either by slip-rings and brushes, or by commutator and brushes. The rotational EMF can therefore be AC or DC.</p>
+<p>Electromechanical power conversion arises from the interaction of the rotational EMF with the current at the brushes. In both cases A and B in Fig. 2, this current would traditionally be called the armature current; the current in the stator coil is the field current, whose sole purpose is to establish the flux. It plays no direct part in the power conversion.</p>
+<p>Fig. 1 can thus be taken as the basis for both AC machines (A) and DC machines (B), although in practice many more coils are required in both cases. In the AC machine the field must be made to rotate, and the common way to achieve that is to exchange the stator and rotor coils in Fig. 1, providing the rotor with DC through slip-rings; then the stator has a multiple of 3 coils to generate EMFs in three phases. In the induction motor the rotating field is established by AC in a polyphase stator, and the rotor rotates asynchronously with this field; no separate field winding is necessary, and the rotor circuit may be short-circuited so that no connections are required to the stationary “outside world”.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Methodology:">Methodology:<a class="anchor-link" href="#Methodology:">&#182;</a></h2><hr>
+<h2 id="Methodology:">Methodology:<a class="anchor-link" href="#Methodology:">&#182;</a></h2><p>In this lab, we make use of Helmholtz coils and a rotating copper disc with necessary equipment (power supply, ammeter, voltmeter, etc) to conduct experiments to systematically investigate the various relationships between rotation frequency $\omega$, magnetic field $B$, field radius $r$, and voltage supply $\mathcal{E}$ using the following apparatus:</p>
+<center>
+<img src="app.png" class="bg-primary mb-1" width="800px">
+    <figcaption><b>Fig. 2:</b> Schematic of the REMF Apparatus (credit: Lab Manual)</figcaption>
+</center><hr>
 
 </div>
 </div>
@@ -13150,9 +13174,16 @@ $( document ).ready(function(){
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Experiments">Experiments<a class="anchor-link" href="#Experiments">&#182;</a></h1><h2 id="Day-1-(03/01/21):">Day 1 (03/01/21):<a class="anchor-link" href="#Day-1-(03/01/21):">&#182;</a></h2><p>We came to the lab and started to identify the equipment. We wanted to devise a way to make measurements of the probes only to realize such a contraption was already made. Upon investigation, we realized the measurements were not correct so we measured the distances using a ruler and taped it to the system.</p>
-<p>We realized to answer the first 4 questions we needed to conduct an experiment where we keep $B, \omega $ the same while changing the radial position of the probe, $r$ and record the associated emf, $\epsilon$.</p>
+<center>
+<table><tr>
+<td> <img src="old1.jpeg" alt="Drawing" style="width: 250px;"/> </td>
+<td> <img src="new1.jpeg" alt="Drawing" style="width: 250px;"/> </td>
+</tr></table>
+<figcaption><b>Fig. 3:</b> a) Old measurement scale b) New measurement scale</figcaption>
+
+</center><p>We realized to answer the first 4 questions we needed to conduct an experiment where we keep $B, \omega $ the same while changing the radial position of the probe, $r$ and record the associated emf, $\epsilon$.</p>
 <p>We were trying to understand each component of the apparatus. We realized that there is no stroboscope.</p>
-<p>We needed to have a constant $B$ field. For that we needed to have a method to measure the $B$ of the two Helmholtz coil system at the plane of the circular disc. We derived the $B$ to be as follows:</p>
+<p>We needed to have a constant $B$ field. For that we needed to have a method to measure the $B$ of the two Helmholtz coil system at the plane of the circular disc. We derived the $B$ to be as follows (see <strong>Section 6</strong>) :</p>
 $$ B = \frac{8 \mu_0 N I}{5\sqrt{5}R} $$<p>From the equation, we see that for a fixed $I$, $B$ would be constant for a given distance $R$.</p>
 <p>Since we were missing the stroboscope, we found alternative sources. Sam found an app - Video Tachometer. We used that to find the frequency of rotation of the disc which the app recorded to be $56.03 Hz$ which is well within the guidelines of the manual.</p>
 <p>Since the method for getting this measurement was kind of clunky. We added a small mark on the disc to make sure we actually record the accurate value. We get $\omega = 54.43 hz$.</p>
@@ -13164,22 +13195,33 @@ $$ B = \frac{8 \mu_0 N I}{5\sqrt{5}R} $$<p>From the equation, we see that for a 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[100]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">getB</span><span class="p">(</span><span class="n">I</span><span class="p">,</span><span class="n">r</span><span class="p">):</span> <span class="c1">#mT</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">curve_fit</span>
+
+
+<span class="k">def</span> <span class="nf">getB</span><span class="p">(</span><span class="n">I</span><span class="p">,</span><span class="n">r</span><span class="p">):</span> <span class="c1">#mT</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">r</span><span class="o">*</span><span class="mf">0.01</span>
     <span class="n">u0</span> <span class="o">=</span> <span class="mf">1.25663706</span><span class="o">*</span><span class="p">(</span><span class="mi">10</span><span class="o">**-</span><span class="mi">6</span><span class="p">)</span>
     <span class="n">N</span> <span class="o">=</span> <span class="mi">294</span>
     <span class="n">B</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span><span class="o">/</span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">5</span><span class="p">)))</span><span class="o">*</span><span class="p">((</span><span class="n">u0</span><span class="o">*</span><span class="n">I</span><span class="o">*</span><span class="n">N</span><span class="p">)</span><span class="o">/</span><span class="n">r</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">B</span><span class="o">*</span><span class="mi">1000</span> 
 
+<span class="k">def</span> <span class="nf">straight</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">a</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">b</span>
+
+
 <span class="k">def</span> <span class="nf">uplot</span><span class="p">(</span><span class="n">xv</span><span class="p">,</span><span class="n">yv</span><span class="p">,</span><span class="n">xerr</span><span class="p">,</span><span class="n">yerr</span><span class="p">,</span><span class="n">figNo</span><span class="p">,</span><span class="n">xlab</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="n">ylab</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="n">caption</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+    <span class="n">pars</span><span class="p">,</span> <span class="n">cov</span> <span class="o">=</span> <span class="n">curve_fit</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="n">straight</span><span class="p">,</span> <span class="n">xdata</span><span class="o">=</span><span class="n">xv</span><span class="p">,</span> <span class="n">ydata</span><span class="o">=</span><span class="n">yv</span><span class="p">,</span> <span class="n">p0</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">))</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">xv</span><span class="p">,</span> <span class="n">yv</span><span class="p">,</span> <span class="n">xerr</span><span class="o">=</span><span class="n">xerr</span><span class="p">,</span> <span class="n">yerr</span><span class="o">=</span><span class="n">yerr</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">mew</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xv</span><span class="p">,</span> <span class="n">straight</span><span class="p">(</span><span class="n">xv</span><span class="p">,</span> <span class="o">*</span><span class="n">pars</span><span class="p">),</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;linear fit&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">xv</span><span class="p">,</span> <span class="n">yv</span><span class="p">,</span> <span class="n">xerr</span><span class="o">=</span><span class="n">xerr</span><span class="p">,</span> <span class="n">yerr</span><span class="o">=</span><span class="n">yerr</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">xlab</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">ylab</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
     <span class="n">getCaption</span><span class="p">(</span><span class="n">figNo</span><span class="p">,</span> <span class="n">caption</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -13191,29 +13233,67 @@ $$ B = \frac{8 \mu_0 N I}{5\sqrt{5}R} $$<p>From the equation, we see that for a 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[83]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">r</span> <span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">2.5</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mf">3.5</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mf">4.5</span><span class="p">]</span> <span class="c1"># cm</span>
 <span class="n">r2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">r</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="c1"># cm^2</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The radius are </span><span class="si">{}</span><span class="s2"> cm and radius squared are </span><span class="si">{}</span><span class="s2"> cm^2&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">r2</span><span class="p">))</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>The radius are [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5] cm and radius squared are [ 0.25  1.    2.25  4.    6.25  9.   12.25 16.   20.25] cm^2
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[82]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">I</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mf">5.01</span><span class="p">,</span> <span class="mf">54.43</span>
 <span class="c1">#B = getB(4.)</span>
-<span class="n">emf</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.6</span><span class="p">,</span><span class="mf">0.8</span><span class="p">,</span><span class="mf">1.1</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">2.4</span><span class="p">,</span><span class="mf">2.9</span><span class="p">,</span><span class="mf">3.5</span><span class="p">,</span><span class="mf">4.0</span><span class="p">]</span> <span class="c1">#mV</span>
+<span class="n">emf</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.6</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="mf">1.1</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">2.4</span><span class="p">,</span><span class="mf">2.9</span><span class="p">,</span><span class="mf">3.5</span><span class="p">,</span><span class="mf">4.1</span><span class="p">]</span> <span class="c1">#mV</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The EMF&#39;s recorded are </span><span class="si">{}</span><span class="s2"> mV&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">emf</span><span class="p">))</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>The EMF&#39;s recorded are [0.6, 0.9, 1.1, 1.5, 2, 2.4, 2.9, 3.5, 4.1] mV
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -13221,22 +13301,43 @@ $$ B = \frac{8 \mu_0 N I}{5\sqrt{5}R} $$<p>From the equation, we see that for a 
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We observe that the disc is uneven making the probes contact on the surface not uniform. This may affect the rotation speed of the disc.</p>
+<p>The uncertainty in  $\mathcal{E}$ was $\pm 0.1 mV$, $r$ was $\pm 0.1 cm$ and that in the $r^2$ term is calculated using error propagation.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[84]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;EMF vs R&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">emf</span><span class="p">,</span> <span class="n">xerr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">yerr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">mew</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;R (cm)&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">curve_fit</span>
+
+<span class="k">def</span> <span class="nf">quad</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">a</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">b</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">c</span>
+
+<span class="n">pars</span><span class="p">,</span> <span class="n">cov</span> <span class="o">=</span> <span class="n">curve_fit</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="n">quad</span><span class="p">,</span> <span class="n">xdata</span><span class="o">=</span><span class="n">r</span><span class="p">,</span> <span class="n">ydata</span><span class="o">=</span><span class="n">emf</span><span class="p">,</span> <span class="n">p0</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[85]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;EMF vs r&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">emf</span><span class="p">,</span> <span class="n">xerr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">yerr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">quad</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="o">*</span><span class="n">pars</span><span class="p">),</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;quadratic fit&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;r (cm)&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;EMF (mV)&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
-<span class="n">getCaption</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;Relationship between EMF and Probe Seperation Distance&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">getCaption</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;Relationship between EMF and Probe Seperation Distance&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
@@ -13256,7 +13357,7 @@ $$ B = \frac{8 \mu_0 N I}{5\sqrt{5}R} $$<p>From the equation, we see that for a 
 
 
 <div class="output_png output_subarea ">
-<img src="output_8_0.png"
+<img src="output_9_0.png"
 >
 </div>
 
@@ -13269,14 +13370,14 @@ $$ B = \frac{8 \mu_0 N I}{5\sqrt{5}R} $$<p>From the equation, we see that for a 
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The uncertainty in the $R$ is calculated using error propagation.</p>
+<p>From Figure 4 it is clear that the relationship between EMF and the probe separation is quadratic within the margin of error.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[86]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">uncertainties</span> <span class="kn">import</span> <span class="n">ufloat</span>
@@ -13286,7 +13387,6 @@ $$ B = \frac{8 \mu_0 N I}{5\sqrt{5}R} $$<p>From the equation, we see that for a 
 
 <span class="k">def</span> <span class="nf">uncertainties_Bfield</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">da</span><span class="p">,</span><span class="n">db</span><span class="p">,</span><span class="n">B</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">B</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">da</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">a</span><span class="p">))</span> <span class="o">+</span> <span class="n">db</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">b</span><span class="p">))))</span>
-    
 </pre></div>
 
     </div>
@@ -13296,14 +13396,38 @@ $$ B = \frac{8 \mu_0 N I}{5\sqrt{5}R} $$<p>From the equation, we see that for a 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[87]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;EMF vs $R^2$&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">r2</span><span class="p">,</span> <span class="n">emf</span><span class="p">,</span> <span class="n">xerr</span><span class="o">=</span><span class="n">uncertainties_product</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">r</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.1</span><span class="p">),</span> <span class="n">yerr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">mew</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$R^2 (cm^2)$&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">curve_fit</span>
+
+<span class="k">def</span> <span class="nf">straight</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">a</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">b</span>
+
+<span class="n">pars</span><span class="p">,</span> <span class="n">cov</span> <span class="o">=</span> <span class="n">curve_fit</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="n">straight</span><span class="p">,</span> <span class="n">xdata</span><span class="o">=</span><span class="n">r2</span><span class="p">,</span> <span class="n">ydata</span><span class="o">=</span><span class="n">emf</span><span class="p">,</span> <span class="n">p0</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[88]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">best_fit</span><span class="p">(</span><span class="n">r2</span><span class="p">,</span> <span class="n">emf</span><span class="p">)</span>
+<span class="n">yfit</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">*</span> <span class="n">xi</span> <span class="k">for</span> <span class="n">xi</span> <span class="ow">in</span> <span class="n">r2</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;EMF vs $r^2$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">r2</span><span class="p">,</span> <span class="n">emf</span><span class="p">,</span> <span class="n">xerr</span><span class="o">=</span><span class="n">uncertainties_product</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">r</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.1</span><span class="p">),</span><span class="n">yerr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">fmt</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r2</span><span class="p">,</span> <span class="n">straight</span><span class="p">(</span><span class="n">r2</span><span class="p">,</span> <span class="o">*</span><span class="n">pars</span><span class="p">),</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;linear fit&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$r^2 (cm^2)$&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;EMF (mV)&quot;</span><span class="p">)</span>
-<span class="n">getCaption</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;Relationship between EMF and Probe Seperation Distance Squared&quot;</span><span class="p">)</span>
+<span class="n">getCaption</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;Relationship between EMF and Probe Seperation Distance Squared&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
@@ -13323,7 +13447,7 @@ $$ B = \frac{8 \mu_0 N I}{5\sqrt{5}R} $$<p>From the equation, we see that for a 
 
 
 <div class="output_png output_subarea ">
-<img src="output_11_0.png"
+<img src="output_13_0.png"
 >
 </div>
 
@@ -13333,9 +13457,46 @@ $$ B = \frac{8 \mu_0 N I}{5\sqrt{5}R} $$<p>From the equation, we see that for a 
 </div>
 
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[92]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.stats</span>
+
+<span class="n">r1</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">linregress</span><span class="p">(</span><span class="n">r2</span><span class="p">,</span> <span class="n">emf</span><span class="p">)</span><span class="o">.</span><span class="n">rvalue</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The correlation coefficient is </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r1</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>The correlation coefficient is 0.9655852774323
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>From figure 5, it is observed that relationship between EMF and Probe Separation is linear.</p>
+<p>We have observed that the surface of the copper disk was rough and uneven making contact of the probes on the surface non-uniform. This most certainly affects the rotation speed of the disk making our fundamental assumption of a fixed $\omega$ untrue. This phenomenon may be responsible for not exact fits of our data.</p>
 <p>Now, we fix the position and $\omega$ and vary the current in the domain $[1,10]$ A increasing by $1 A$ with seperation being $4.5 cm$.</p>
 
 </div>
@@ -13343,16 +13504,35 @@ $$ B = \frac{8 \mu_0 N I}{5\sqrt{5}R} $$<p>From the equation, we see that for a 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[93]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="mf">4.5</span> <span class="c1">#cm</span>
 <span class="n">I_exp2</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.04</span><span class="p">,</span><span class="mf">2.02</span><span class="p">,</span><span class="mf">3.01</span><span class="p">,</span><span class="mf">4.01</span><span class="p">,</span><span class="mf">5.03</span><span class="p">,</span><span class="mf">6.03</span><span class="p">,</span><span class="mf">7.06</span><span class="p">,</span><span class="mf">8.00</span><span class="p">]</span> <span class="c1">#A</span>
 <span class="n">emf_exp2</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">1.3</span><span class="p">,</span><span class="mf">2.2</span><span class="p">,</span><span class="mf">3.1</span><span class="p">,</span><span class="mf">3.9</span><span class="p">,</span><span class="mf">4.8</span><span class="p">,</span><span class="mf">5.6</span><span class="p">,</span><span class="mf">6.4</span><span class="p">]</span> <span class="c1">#mV</span>
 <span class="n">B_exp2</span> <span class="o">=</span> <span class="p">[</span><span class="n">getB</span><span class="p">(</span><span class="n">I</span><span class="p">,</span><span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">I</span> <span class="ow">in</span> <span class="n">I_exp2</span><span class="p">]</span> <span class="c1">#mT</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The currents registed are </span><span class="si">{}</span><span class="s2"> A and with the corresponding EMF&#39;s </span><span class="si">{}</span><span class="s2"> mV. The calculated B field values are </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">I_exp2</span><span class="p">,</span><span class="n">emf_exp2</span><span class="p">,</span><span class="n">B_exp2</span><span class="p">))</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>The currents registed are [1.04, 2.02, 3.01, 4.01, 5.03, 6.03, 7.06, 8.0] A and with the corresponding EMF&#39;s [0.5, 1.3, 2.2, 3.1, 3.9, 4.8, 5.6, 6.4] mV. The calculated B field values are [6.1096031280602165, 11.866729152578504, 17.682601361020435, 23.55721975338603, 29.549330513598935, 35.42394890596454, 41.47480585010109, 46.99694713892475]
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -13360,17 +13540,17 @@ $$ B = \frac{8 \mu_0 N I}{5\sqrt{5}R} $$<p>From the equation, we see that for a 
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Change uncertainty for B.</p>
+<p>The uncertainty in $I$ was $\pm 0.001 A$ and the uncertainty in $B$ was calculated using error propagation.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[102]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">uplot</span><span class="p">(</span><span class="n">B_exp2</span><span class="p">,</span> <span class="n">emf_exp2</span><span class="p">,</span> <span class="n">uncertainties_Bfield</span><span class="p">(</span><span class="n">r</span><span class="o">*</span><span class="mf">0.01</span><span class="p">,</span><span class="n">I_exp2</span><span class="p">,</span><span class="mf">0.1</span><span class="o">*</span><span class="mf">0.01</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="n">B_exp2</span><span class="p">),</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;B (mT)&quot;</span><span class="p">,</span> <span class="s2">&quot;EMF (mV)&quot;</span><span class="p">,</span> <span class="s2">&quot;EMV vs B&quot;</span><span class="p">,</span> <span class="s2">&quot;Relationship between B and EMF&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">uplot</span><span class="p">(</span><span class="n">B_exp2</span><span class="p">,</span> <span class="n">emf_exp2</span><span class="p">,</span> <span class="n">uncertainties_Bfield</span><span class="p">(</span><span class="n">r</span><span class="o">*</span><span class="mf">0.01</span><span class="p">,</span><span class="n">I_exp2</span><span class="p">,</span><span class="mf">0.1</span><span class="o">*</span><span class="mf">0.01</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="n">B_exp2</span><span class="p">),</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="s2">&quot;B (mT)&quot;</span><span class="p">,</span> <span class="s2">&quot;EMF (mV)&quot;</span><span class="p">,</span> <span class="s2">&quot;EMF vs B&quot;</span><span class="p">,</span> <span class="s2">&quot;Relationship between B and EMF&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13389,7 +13569,7 @@ $$ B = \frac{8 \mu_0 N I}{5\sqrt{5}R} $$<p>From the equation, we see that for a 
 
 
 <div class="output_png output_subarea ">
-<img src="output_15_0.png"
+<img src="output_18_0.png"
 >
 </div>
 
@@ -13402,7 +13582,7 @@ $$ B = \frac{8 \mu_0 N I}{5\sqrt{5}R} $$<p>From the equation, we see that for a 
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>For part 3, since we cannot change the frequency of the copper disc we were asked by Imtiaz to derive the equations instead.</p>
+<p>From figure 6, it is obvious that the relationship between B and EMF is linear within the error bounds.</p>
 
 </div>
 </div>
@@ -13410,61 +13590,52 @@ $$ B = \frac{8 \mu_0 N I}{5\sqrt{5}R} $$<p>From the equation, we see that for a 
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Day-2-(03/03/21):">Day 2 (03/03/21):<a class="anchor-link" href="#Day-2-(03/03/21):">&#182;</a></h2>
+<h1 id="Conclusion-&amp;-Summary">Conclusion &amp; Summary<a class="anchor-link" href="#Conclusion-&amp;-Summary">&#182;</a></h1><p>In this lab we were asked to investigate the phenomenon of Rotational EMF's and identify the relationships between the generated EMF and the external magnetic field, rotational frequency, and probe separation distance on the copper disk. For answering these questions, we set up an apparatus as detailed by <strong>Figure 2</strong> and conducted the experiments described by the questions in lab manual.</p>
+<p>For the first of these experiments, we kept the current, magnetic field and angular frequency constant and varied the probe separation distance in increments of $0.5 cm$ from $0.5 cm$ to $4.5 cm$ and tabulated the generated EMF using the multimeter. Our results verified that the emf is linearly dependent on $r^2$ just as the theory suggests with a correlation coefficient of 0.96.</p>
+<p>For the second experiment, we kept the probe separation distance and angular frequency constant and varied the current to vary the Magnetic field. We recorded the generated EMF values corresponding to the magnetic field and found the relationship between these two quantities to be linear in agreement with the theory with a correlation coefficient of 0.99.</p>
+<p>Since, the mechanism for changing the angular frequency did not exist we were asked by the TA (Imtiaz bhai) to not conduct the experiment to determine the relationship between angular frequency and emf as it is not possible with the available equipment.</p>
+<p>The sources of uncertainties for these experiments were measurement errors (explained in <strong>Section 3</strong>). Other than measurement errors there were sources of systematic errors due to the rotation of the copper disk whose angular frequency was not constant due to the uneven surface and non-uniform contact with the probes. To mitigate this error, we waited for 10 seconds for the disk to speed up before making any measurements and only recorded the data once the voltmeter stopped fluctuating/fluctuated within the measurement uncertainty.</p>
+<p>Overall, this experiment validated the physics behind Rotational EMF and identified the relationships between the various physical quantity involved in this phenomena.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Conclusion-&amp;-Summary">Conclusion &amp; Summary<a class="anchor-link" href="#Conclusion-&amp;-Summary">&#182;</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Project-Questions:">Project Questions:<a class="anchor-link" href="#Project-Questions:">&#182;</a></h1><ol>
-<li>Plot V vs I, as shown above. Discuss your circuit to collect data. Calculate maximum and average power output. Make sure to include uncertainties, P ± ∆P .</li>
-</ol>
-<p><strong>Solution:</strong></p>
-<hr>
-<ol>
-<li>Is a solar panel a current source, voltage source, or both? Include a plot or diagram to explain your reasoning.</li>
-</ol>
-<p><strong>Solution:</strong></p>
-<hr>
-<ol>
-<li>What is the efficiency of your solar panel? You can easily find out what the irradiance at the moment you are making your measurements outside. See West Texas Mesonet data for all kinds of weather related minute by minute information. For example, see <a href="http://rain.ttu.edu/tech/1-output/mesonet.php">http://rain.ttu.edu/tech/1-output/mesonet.php</a>.</li>
-</ol>
-<p><strong>Solution:</strong></p>
-<hr>
-<ol>
-<li>How much power is generated per solar panel?</li>
-</ol>
-<p><strong>Solution:</strong></p>
-<p>The power generated by <em>our particular solar panel</em> was roughly $45 W$. (calculation done in section 3)</p>
-<hr>
-<ol>
-<li>Explain the p-n junction.</li>
-</ol>
-<p><strong>Solution:</strong></p>
-<hr>
-<ol>
-<li>Explain the differences between the photovoltaic effect and the photoelectric effect. Why is this an important idea to understand?</li>
-</ol>
-<p><strong>Solution:</strong></p>
-<hr>
-<ol>
-<li>Why are solar panels typically made of silicon? Could we use some other material?</li>
-</ol>
-<p><strong>Solution:</strong></p>
-<hr>
-<ol>
-<li>Based on your measurements, estimate how many solar panels you would need to power a typical house. Make an estimate of the cost. Argue if it makes sense to go solar or not in Lubbock.</li>
-</ol>
-<p><strong>Solution:</strong></p>
-<hr>
+<h1 id="Project-Questions:">Project Questions:<a class="anchor-link" href="#Project-Questions:">&#182;</a></h1><p><strong>1. Measure the emf and plot it as a function of the probe’s radial position along the disc (for 2
+constants $B$ and $\omega$). Plot the emf as a function of $r^2$ . What is the relationship between $\mathcal{E}$ and $r$?</strong></p>
+<p>See <strong>Figures 4 \&amp; 5</strong>. The relationship between $\mathcal{E}$ and $r$ is $$\mathcal{E} \propto r^2 \\ \Rightarrow \mathcal{E}= ar^2 + br + c $$ i.e. they are quadratic.</p>
+<p><strong>2. Choose a radial position and rotational speed and vary B by changing the current in the Helmholtz coil. Plot your results. What is the relationship between ε and B?</strong></p>
+<p>See <strong>Figure 6</strong>. The relationship between $\mathcal{E}$ and $B$ is linear $$\mathcal{E} \propto B \\ \Rightarrow \mathcal{E}= mB + c $$</p>
+<p><strong>3. Measure $\mathcal{E}$ and plot it as a function of $\omega$ (for constant $B$ and $r$). What is the relationship between $\mathcal{E}$ and $\omega$?</strong></p>
+<p>We were asked to ignore this question as there are no control mechanism for changing $\omega$. However, we know that the relationship $\mathcal{E}$ and $\omega$ is linear.</p>
+<p><strong>4. Based on your previous results, determine an equation for the relationship between $\mathcal{E}$ and $B$, $\omega$, and $r$.</strong></p>
+$$  \mathcal{E} = A \omega B r^2 $$<p>Here is $A$ is a constant of proportionality.</p>
+<p><strong>5. Derive the formula for motional emf and current in a rotating disk as a function of rotation frequency $\omega$, magnetic field $B$, and field radius $r$. Hint: use Faraday’s law of induction in integral form and consider the flux rate-of-change of flux though a “sweeping area” defined by an imaginary radial line on the disk that rotates with the disk. Does this agree with your equation based on the plots?</strong></p>
+<p>From the Lorentz force equation, we have</p>
+$$ \vec{F} = q (\vec{E} + \vec{v} \times \vec{B}) $$<p>Here, $\vec{F}$ is the force $q$ is charge, $\vec{E}$ is the Electric field, $v$ is velocity and $\vec{B}$ is the magnetic field. Since the $ \vec{E} = 0 $.</p>
+$$ \vec{F} = q (\vec{v} \times \vec{B}) $$<p>The force per unit charge, $\vec{F}_{puc}$ is</p>
+$$ \vec{F}_{puc} = \frac{\vec{F}}{q} =  \vec{v} \times \vec{B} $$<p>From basic kinematics, we know</p>
+$$ \vec{v} = \vec{r} \omega $$<p>Here, $v$ is the linear velocity, $r$ is the displacement and $\omega$ is the angular frequency. From, Faraday’s law of induction in integral form, we have (where $a$ is the radius of the imaginary radial line on the disk):</p>
+$$ \mathcal{E} = \int_0^a \vec{F}_{puc}.d\vec{r} $$$$ \mathcal{E} = \int_0^a (\vec{v} \times \vec{B}).d\vec{r} $$$$\mathcal{E}= \omega B \int_0^a r dr $$$$ \therefore \mathcal{E} = \frac{\omega B a^2}{2}$$<p>Yes, it definitely agrees with our plots.</p>
+<p><strong>6. Derive a formula for (and calculate) the magnetic field at the center of a Helmholtz coil as a function of the current I.</strong></p>
+<p>This equation is indicated by Biot-Savart law. For the magnetic field in horizontal direction and a coil with only one winding applies</p>
+$$\vec B(x)=\frac{\mu_0\cdot I \cdot N}{2}\cdot \frac{R^2}{\left(R^2+x^2\right)^{\frac{3}{2}}}\cdot \hat{x}$$<p></p>
+<p>Here, $\mu_0$ is the vacuum permeability, $N$ is the number of coils, $\vec{B}$ is the magnetic field, $x$ is the horizontal distance away from the center of the Hemholtz coil, $R$ is the radius of the coils and also the distance between the two coils. The magnetic field at center of two Helmholtz coils is the superposition of two circular currents with N loops. For symmetry reasons it becomes:</p>
+$$ B=B\left(\frac{R}{2}\right)+B\left(-\frac{R}{2}\right)=2\cdot B\left(\frac{R}{2}\right)$$$$ =\mu_0\cdot \frac{I\cdot R^2 \cdot N}{\left(R^2+\frac{R^2}{4}\right)^{\frac{3}{2}}} $$$$ =\mu_0\cdot \frac{8\cdot I \cdot N}{\sqrt{125}\cdot R}$$$$ \therefore B = \frac{8 \mu_0 N I}{5\sqrt{5}R} $$<p><strong>7. Neither the area of the disk nor the magnetic field depend on time here. So how is the emf generated?</strong></p>
+<p>We know that the emf is a voltage induced in a closed circuit by the rate of change of flux $\Psi$. Since it always obeys Faraday’s law:</p>
+$$\mathcal{E} = \frac{\delta \Psi}{\delta t}$$<p>Since, the flux, $\Psi$, in our case is changing, hence the corresponding EMF is generated.</p>
+<p><strong>8. What do you expect would happen if you were to rotate the Helmholtz coils while maintaining the disk stationary</strong></p>
+<p>If the rotation of the Helmholtz coils is not along the common axis of it and the disk and is in a way such that the final result of the rotation is the replacement of the top coil with the bottom. For such a rotation, the incident magnetic field lines during the rotation (when the coils and disc don't have a common axis) would no longer be uniform. There will still be rate of change of flux so we will register an emf. The value of this emf depends on how fast we rotate. At the final position where the top coil is now on the bottom, the $\vec{B}$ direction will change but other than that will be identical to our present configuration.</p>
+<p><strong>9. What would you expect to happen if both the Helmholtz coils and the disk rotated while the electronic equipment remained stationary?</strong></p>
+<p>Since both the Helmholtz coils and the disk are rotating together the common axis remains the same and the incident magnetic field on the plane of the disc remains perpendicular and uniform. This means that the results that we would obtain under this arrangement will be identical to our present static arrangement.</p>
+<p><strong>10. Why do you suppose we use copper? Can some other conductor be used as well?</strong></p>
+<p>Because copper is a non-magnetic conductor that is readily available and malleable making it an ideal candidate to serve as a Faraday disk (i.e. it does not have a magnetic source that moves with it). Other conductors with similar properties such as Aluminum can also be used.</p>
+<p><strong>11. What does copper look like (smooth, rough, thick, thin, etc)? Is this important?</strong></p>
+<p>The copper disk needs to be smooth and thin. This is important as keeping it smooth and thin so as to reduce the self-cancelling counterflows of current in regions of the disk that were not under the influence of the magnetic field. This counterflow limited the power output to the pickup wires, and induced waste heating of the copper disc so keeping it smooth and thin improves the efficiency of emf generation.</p>
+<p><strong>12. Can you suggest a practical application where the physics involved in this effect be put to use?</strong></p>
+<p>A practical application behind the physics involved in this effect could be used in the following <em>futuristic</em> scenario. Imagine a one lane stretch of road where the curbs on the sidewalk are parallel charged plates such that there is a uniform magnetic field parallel to the surface of the road. In this futuristic road, only cars with tires with conducting discs as the hub caps. As the cars drive through this road, there will be a change of flux experienced by the conducting discs due to the uniform magnetic field and rotation of the wheels. Circuits can be made to charge capacitors in the car by drawing current from these hub caps which can now serve as a voltage source due to the rotational EMF's generated.</p>
 
 </div>
 </div>
